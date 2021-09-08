@@ -12,7 +12,7 @@ def get_location():
     return g.city, g.state
 
 def get_weather(city, state):
-    r = requests.get('https://api.openweathermap.org/data/2.5/weather?q={},MS,US&appid={}'.format(str(city), api_key))
+    r = requests.get('https://api.openweathermap.org/data/2.5/weather?q={},{},US&appid={}'.format(city, state, api_key))
     dict = r.json()
     current_temp = str(round(k_to_f(dict['main']['temp']), 1))
     feels_like = str(round(k_to_f(dict['main']['feels_like']), 1))

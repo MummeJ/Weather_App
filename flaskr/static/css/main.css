@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  height: 100vh;
+}
+
 nav {
   display: flex;
   justify-content: space-around;
@@ -13,6 +17,15 @@ nav {
   font-family: 'Anton', sans-serif;
 }
 
+h1, p {
+  text-align: center;
+  border-radius: 25px;
+}
+
+a {
+  text-decoration: none;
+  color: #bdbdbd;
+}
 .logo{
   color: #bdbdbd;
   text-transform: uppercase;
@@ -48,6 +61,35 @@ nav {
   background-color: #bdbdbd;
   margin: 5px;
   transition: all 0.3s ease;
+}
+
+.wrapper {
+  width:80%;
+  margin:auto;
+  background-color: #090d86;
+  height: 100%;
+  color: #bdbdbd;
+  font-family:  'Anton', sans-serif;
+}
+
+.break {
+  width: 100%;
+  height: 10px;
+  background-color: black;
+  margin-bottom: 20px;
+}
+.location {
+  margin: auto;
+  width: 70%;
+  border: 3px solid black;
+  padding: 10px;
+  background-color: #3259ad;
+  border-radius: 25px;
+  letter-spacing: 2px;
+}
+
+.form p {
+  border-radius: 25px;
 }
 
 @media screen and (max-width:768px){

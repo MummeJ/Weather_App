@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <nav>
+    <div class="logo">
+      <h4>Weather Finder</h4>
+    </div>
+    <ul class='nav-links'>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Contact Us</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <div class="burger">
+      <div class="line1"></div>
+      <div class="line2"></div>
+      <div class="line3"></div>
+    </div>
+  </nav>
+  <div class="wrapper">
+    <div class="break">
+    </div>
+    <div class="location">
+      <h1>Weather For {{ city }}, {{ state }}</h1>
+      <p>Temperature: {{ weather[0] }}</p>
+      <p>Feels Like: {{ weather[1] }}</p>
+      <p>High: {{ weather[2] }}</p>
+      <p>Low: {{ weather[3] }}</p>
+      <p>Condition: {{ weather[4] }}</p>
+    </div>
+    <p><a href="/"><-- Back to Home</a></p>
+  </div>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

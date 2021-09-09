@@ -5,7 +5,7 @@ from flaskr.db import get_db
 from flaskr.api_request import get_location, get_weather
 from flaskr.forms import SearchForm
 
-bp = Blueprint('routes', __name__, url_prefix='/')
+bp = Blueprint('routes', __name__)
 
 @bp.route('/', methods=['POST', 'GET'])
 def index():
@@ -16,6 +16,16 @@ def index():
         if form.validate_on_submit():
             city = form.city.data
             state = form.state.data
-            location = form.city.data
-            current_weather = get_weather(city, state)
+            city = city.capitalize()
+            state = state.upper()
+            return redirect('/search/'+city+'_'+state)
     return render_template('index.html', form=form, location=location, weather=current_weather)
+
+@bp.route('/search/<city>_<state>', methods=['POST', 'GET'])
+def search(city, state):
+    try:
+        current_weather = get_weather(city, state)
+    except:
+        flash('Sorry, we could not find the weather for '+city+', '+state+'. Try searching again!')
+        return redirect(url_for('routes.index'))
+    return render_template('search.html', city=city, state=state, weather=current_weather)

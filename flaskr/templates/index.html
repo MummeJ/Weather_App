@@ -16,33 +16,45 @@
       <div class="line3"></div>
     </div>
   </nav>
-  <div class="location">
-    <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
-    <p>Temperature: {{ weather[0] }}</p>
-    <p>Feels Like: {{ weather[1] }}</p>
-    <p>High: {{ weather[2] }}</p>
-    <p>Low: {{ weather[3] }}</p>
-    <p>Condition: {{ weather[4] }}</p>
-  </div>
-  <div class="form">
-    <form action="" method="POST">
-    {{ form.hidden_tag() }}
-    <p>
-      {{ form.city(size=32,placeholder="City") }}<br>
-      {% for error in form.city.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <form action="" method="POST">
-    {{ form.hidden_tag() }}
-    <p>
-      {{ form.state(size=32,placeholder="State") }}<br>
-      {% for error in form.state.errors %}
-      <span style="color: red;">[{{ error }}]</span>
-      {% endfor %}
-    </p>
-    <p>{{ form.submit }}</p>
+  <div class="wrapper">
+    <div class="break">
+    </div>
+    <div class="location">
+      <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
+      <p>Temperature: {{ weather[0] }}</p>
+      <p>Feels Like: {{ weather[1] }}</p>
+      <p>High: {{ weather[2] }}</p>
+      <p>Low: {{ weather[3] }}</p>
+      <p>Condition: {{ weather[4] }}</p>
+    </div>
+    <div class="form">
+      <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.city(size=32,placeholder="City") }}<br>
+        {% for error in form.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <form action="" method="POST">
+      {{ form.hidden_tag() }}
+      <p>
+        {{ form.state(size=32,placeholder="State") }}<br>
+        {% for error in form.state.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+      </p>
+      <p>{{ form.submit }}</p>
 
+    </div>
+    <span>{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}</span>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
   </div>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 {% endblock %}

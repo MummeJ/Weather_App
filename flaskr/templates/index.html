@@ -17,8 +17,6 @@
     </div>
   </nav>
   <div class="wrapper">
-    <div class="break">
-    </div>
     <div class="location">
       <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
       <p>Temperature: {{ weather[0] }}</p>
@@ -27,6 +25,7 @@
       <p>Low: {{ weather[3] }}</p>
       <p>Condition: {{ weather[4] }}</p>
     </div>
+    <br>
     <div class="form">
       <form action="" method="POST">
       {{ form.hidden_tag() }}
@@ -47,6 +46,7 @@
       <p>{{ form.submit }}</p>
 
     </div>
+    <br>
     <span>{% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}

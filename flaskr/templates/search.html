@@ -17,8 +17,6 @@
     </div>
   </nav>
   <div class="wrapper">
-    <div class="break">
-    </div>
     <div class="location">
       <h1>Weather For {{ city }}, {{ state }}</h1>
       <p>Temperature: {{ weather[0] }}</p>
@@ -27,6 +25,7 @@
       <p>Low: {{ weather[3] }}</p>
       <p>Condition: {{ weather[4] }}</p>
     </div>
+    <br>
     <p><a href="/"><-- Back to Home</a></p>
   </div>
   <script src="{{ url_for('static', filename='js/main.js') }}"></script>

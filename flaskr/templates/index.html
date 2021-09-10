@@ -11,35 +11,4 @@
       <p>Condition: {{ weather[4] }}</p>
     </div>
     <br>
-    <div class="form">
-      <form action="" method="POST">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.city(size=32,placeholder="City") }}<br>
-        {% for error in form.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <form action="" method="POST">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.state(size=32,placeholder="State") }}<br>
-        {% for error in form.state.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>{{ form.submit }}</p>
-
-    </div>
-    <br>
-    <span>{% with messages = get_flashed_messages() %}
-    {% if messages %}
-      {% for message in messages %}
-        {{ message }}
-      {% endfor %}
-    {% endif %}
-    {% endwith %}</span>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-  </div>
-
 {% endblock %}

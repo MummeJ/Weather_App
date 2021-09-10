@@ -12,7 +12,7 @@ def index():
     location = get_location()
     if location != 'Unavailable':
         current_weather = get_weather(location[0], location[1])
-        form = SearchForm(csrf_enabled=False)
+        #form = SearchForm(csrf_enabled=False)
         if request.method == 'POST':
             if form.validate_on_submit():
                 city = form.city.data
@@ -20,7 +20,7 @@ def index():
                 city = city.capitalize()
                 state = state.upper()
                 return redirect('/search/'+city+'_'+state)
-        return render_template('index.html', form=form, location=location, weather=current_weather)
+        return render_template('index.html', location=location, weather=current_weather)
     else:
         return redirect('/service_unavailable')
 

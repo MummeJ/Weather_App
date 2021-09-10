@@ -10,19 +10,6 @@
       <p>Low: {{ weather[3] }}</p>
       <p>Condition: {{ weather[4] }}</p>
     </div>
-    <br>
-    <div class="form">
-      <form action="" method="POST">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.search_bar(size=32,placeholder="City, State",class_="search-bar") }}<br>
-        {% for error in form.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
-      <p>{{ form.submit }}</p>
-    </div>
-    <br>
     <span>{% with messages = get_flashed_messages() %}
     {% if messages %}
       {% for message in messages %}

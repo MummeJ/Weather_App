@@ -15,8 +15,9 @@ def index():
         form = SearchForm(csrf_enabled=False)
         if request.method == 'POST':
             if form.validate_on_submit():
-                city = form.city.data
-                state = form.state.data
+                input = form.search_bar.data.split(', ')
+                city = input[0]
+                state = input[1]
                 city = city.capitalize()
                 state = state.upper()
                 return redirect('/search/'+city+'_'+state)
@@ -26,13 +27,24 @@ def index():
 
 @bp.route('/service_unavailable', methods=['GET'])
 def unavailable():
-    return render_template('unavailable.html')
+    form = SearchForm(csrf_enabled=False)
+    return render_template('unavailable.html', form=form)
 
 @bp.route('/search/<city>_<state>', methods=['POST', 'GET'])
 def search(city, state):
+    form = SearchForm(csrf_enabled=False)
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            input = form.search_bar.data.split(', ')
+            city = input[0]
+            state = input[1]
+            city = city.capitalize()
+            state = state.upper()
+            return redirect('/search/'+city+'_'+state)
+    #return render_template('search.html', form=form, location=location, weather=current_weather)
     try:
         current_weather = get_weather(city, state)
     except:
         flash('Sorry, we could not find the weather for '+city+', '+state+'. Try searching again!')
         return redirect(url_for('routes.index'))
-    return render_template('search.html', city=city, state=state, weather=current_weather)
+    return render_template('search.html', form=form, city=city, state=state, weather=current_weather)

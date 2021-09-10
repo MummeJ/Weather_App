@@ -95,12 +95,52 @@ span {
   box-shadow: -5px 5px 10px black;
 }
 
-.form p {
-  border-radius: 25px;
+.search-bar {
+  height: 30px;
+  border: 2px solid #b8b8b8;
+  border-radius: 50px;
+  padding: 3px;
+  display: flex;
+  margin-right: auto;
 }
 
-.search-bar {
-  background: black;
+.search-bar-input {
+  padding: 0 0.5em;
+  flex-grow: 1;
+  font-size: 1rem;
+  border: 0;
+  background: transparent;
+  color: #b8b8b8;
+  width: 50%;
+  font-family: 'Poppins', sans-serif;
+}
+.search-bar-input:focus {
+  outline: none;
+}
+
+.search-bar-submit {
+  font-size: 1rem;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  color: #b8b8b8;
+}
+
+::placeholder {
+  color: #b8b8b8;
+  opacity: 40%;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  transition: background-color 50000s;
+  -webkit-text-fill-color: #fff !important;
 }
 
 @media screen and (max-width:768px){

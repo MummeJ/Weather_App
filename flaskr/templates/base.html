@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5f92e30ae4.js" crossorigin="anonymous"></script>
     <title>Weather Finder</title>
     {% block head %}{% endblock %}
   </head>
@@ -15,6 +16,14 @@
     <nav>
       <div class="logo">
         <h4>Weather Finder</h4>
+      </div>
+      <div class="form">
+        <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="search-bar">
+          {{ form.search_bar(size=32,placeholder="City, State",class_="search-bar-input") }}
+          <button type="submit" class="search-bar-submit"><i class="fas fa-search"></i></button>
+        </div>
       </div>
       <ul class='nav-links'>
         <li><a href="/">Home</a></li>

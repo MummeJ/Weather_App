@@ -1,5 +1,6 @@
 import requests
 import geocoder
+from flask import redirect
 
 api_key = 'c1a0b5df07dfd6f81425799dbbd1c044'
 
@@ -9,7 +10,11 @@ def k_to_f(k_temp):
 
 def get_location():
     g = geocoder.ip('me')
-    return g.city, g.state
+    if g.ok:
+        return g.city, g.state
+    else:
+        return "Unavailable"
+
 
 def get_weather(city, state):
     r = requests.get('https://api.openweathermap.org/data/2.5/weather?q={},{},US&appid={}'.format(city, state, api_key))

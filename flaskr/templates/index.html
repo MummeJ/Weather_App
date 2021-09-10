@@ -15,21 +15,12 @@
       <form action="" method="POST">
       {{ form.hidden_tag() }}
       <p>
-        {{ form.city(size=32,placeholder="City") }}<br>
+        {{ form.search_bar(size=32,placeholder="City, State",class_="search-bar") }}<br>
         {% for error in form.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
       </p>
-      <form action="" method="POST">
-      {{ form.hidden_tag() }}
-      <p>
-        {{ form.state(size=32,placeholder="State") }}<br>
-        {% for error in form.state.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </p>
       <p>{{ form.submit }}</p>
-
     </div>
     <br>
     <span>{% with messages = get_flashed_messages() %}

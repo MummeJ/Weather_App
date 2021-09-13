@@ -8,19 +8,11 @@ owm_key = 'c1a0b5df07dfd6f81425799dbbd1c044'
 
 def unix_daily():
     current_day = int(time.time())
-    last_day = int(time.time()) + 604800
     all_days = []
-    while True:
-        if current_day < last_day:
-            all_days.append(current_day)
-            current_day + 86400
-        else:
-            break
+    for n in range(1, 8):
+        all_days.append(current_day)
+        current_day += 86400
     return all_days
-
-def k_to_f(k_temp):
-    fahrenheit = (k_temp - 273.15) * 9/5 + 32
-    return fahrenheit
 
 def get_location():
     g = geocoder.ip('me')
@@ -41,20 +33,23 @@ def get_coordinates(city, state):
         return lat, lon
 
 def get_daily_weather(city, state):
+    city_state = city + ',' + state + ',US'
     coordinates = get_coordinates(city, state)
     all_days = unix_daily()
-    params = {'lat': coordinates[0], 'lon':coordinates[1], 'dt': '', 'units': 'imperial', 'exclude': 'current+minutely', 'appid': owm_key }
-    base_url = 'https://api.openweathermap.org/data/2.5/onecall?'
-    for day in all_days:
-        params['dt'] = str(day)
-        r = requests.get(base_url, params=params)
+    params = {'q': city_state, 'cnt':'7', 'units': 'imperial', 'appid': owm_key }
+    base_url = 'https://api.openweathermap.org/data/2.5/forecast/daily?'
+    r = requests.get(base_url, params=params)
     dict = r.json()
-    current_temp = str(round(dict['current']['temp']))
-    feels_like = str(round(dict['current']['feels_like']))
-    temp_high = str(round(dict['current']['pressure']))
-    temp_low = str(round(dict['current']['humidity']))
-    sky = str(round(dict['current']['humidity']))
-    return current_temp, feels_like, temp_high, temp_low, sky
+    print(dict)
+    weather = {}
+    num = 2
+    for day in dict['list']:
+        weather[num] = {}
+        weather[num]['temp_high'] = str(round(day['temp']['max']))
+        weather[num]['temp_low'] = str(round(day['temp']['min']))
+        weather[num]['condition'] = str(day['weather'][0]['main'])
+        num += 1
+    return weather
 
 def get_current_weather(city, state):
     city_state = city + ',' + state + ',US'

@@ -1,9 +1,22 @@
 import requests
 import geocoder
 from flask import redirect
+import time
 
 google_key = 'AIzaSyDc3GdOMZnLnRGztSGHRe9FGATaMEfrSO0'
 owm_key = 'c1a0b5df07dfd6f81425799dbbd1c044'
+
+def unix_daily():
+    current_day = int(time.time())
+    last_day = int(time.time()) + 604800
+    all_days = []
+    while True:
+        if current_day < last_day:
+            all_days.append(current_day)
+            current_day + 86400
+        else:
+            break
+    return all_days
 
 def k_to_f(k_temp):
     fahrenheit = (k_temp - 273.15) * 9/5 + 32
@@ -27,11 +40,14 @@ def get_coordinates(city, state):
         lon = geometry['location']['lng']
         return lat, lon
 
-def get_future_weather(city, state):
+def get_daily_weather(city, state):
     coordinates = get_coordinates(city, state)
-    params = {'lat': coordinates[0], 'lon':coordinates[1], 'units': 'imperial', 'exclude': 'current+minutely', 'appid': owm_key }
+    all_days = unix_daily()
+    params = {'lat': coordinates[0], 'lon':coordinates[1], 'dt': '', 'units': 'imperial', 'exclude': 'current+minutely', 'appid': owm_key }
     base_url = 'https://api.openweathermap.org/data/2.5/onecall?'
-    r = requests.get(base_url, params=params)
+    for day in all_days:
+        params['dt'] = str(day)
+        r = requests.get(base_url, params=params)
     dict = r.json()
     current_temp = str(round(dict['current']['temp']))
     feels_like = str(round(dict['current']['feels_like']))

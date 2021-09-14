@@ -4,11 +4,23 @@
   <div class="wrapper">
     <div class="location">
       <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
-      <p>Temperature: {{ weather[0] }}</p>
-      <p>Feels Like: {{ weather[1] }}</p>
-      <p>High: {{ weather[2] }}</p>
-      <p>Low: {{ weather[3] }}</p>
-      <p>Condition: {{ weather[4] }}</p>
+      <p>Temperature: {{ current_weather[0] }}</p>
+      <p>Feels Like: {{ current_weather[1] }}</p>
+      <p>High: {{ current_weather[2] }}</p>
+      <p>Low: {{ current_weather[3] }}</p>
+      <p>Condition: {{ current_weather[4] }}</p>
+    </div>
+    <div class="location">
+      <h2>Hourly Forcast</h2>
+      <p>Temperature: {{ hourly_weather[1]['temp'] }}</p>
+      <p>Wind Speed: {{ hourly_weather[1]['wind_speed'] }}</p>
+      <p>Condition: {{ hourly_weather[1]['condition'] }}</p>
+    </div>
+    <div class="location">
+      <h2>Daily Forcast</h2>
+      <p>High: {{ daily_weather[1]['temp_high'] }}</p>
+      <p>Low: {{ daily_weather[1]['temp_low'] }}</p>
+      <p>Condition: {{ daily_weather[1]['condition'] }}</p>
     </div>
     <span>{% with messages = get_flashed_messages() %}
     {% if messages %}

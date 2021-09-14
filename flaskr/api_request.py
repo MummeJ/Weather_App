@@ -32,24 +32,30 @@ def get_coordinates(city, state):
         lon = geometry['location']['lng']
         return lat, lon
 
-def get_daily_weather(city, state):
+def get_future_weather(city, state):
     city_state = city + ',' + state + ',US'
     coordinates = get_coordinates(city, state)
-    all_days = unix_daily()
-    params = {'q': city_state, 'cnt':'7', 'units': 'imperial', 'appid': owm_key }
-    base_url = 'https://api.openweathermap.org/data/2.5/forecast/daily?'
+    params = {'lat': coordinates[0], 'lon': coordinates[1], 'units': 'imperial', 'exclude': 'current,minutely', 'appid': owm_key }
+    base_url = 'https://api.openweathermap.org/data/2.5/onecall?'
     r = requests.get(base_url, params=params)
     dict = r.json()
-    print(dict)
-    weather = {}
-    num = 2
-    for day in dict['list']:
-        weather[num] = {}
-        weather[num]['temp_high'] = str(round(day['temp']['max']))
-        weather[num]['temp_low'] = str(round(day['temp']['min']))
-        weather[num]['condition'] = str(day['weather'][0]['main'])
+    daily_weather = {}
+    num = 1
+    for day in dict['daily']:
+        daily_weather[num] = {}
+        daily_weather[num]['temp_high'] = str(round(day['temp']['max']))
+        daily_weather[num]['temp_low'] = str(round(day['temp']['min']))
+        daily_weather[num]['condition'] = str(day['weather'][0]['main'])
         num += 1
-    return weather
+    num = 1
+    hourly_weather = {}
+    for hour in dict['hourly']:
+        hourly_weather[num] = {}
+        hourly_weather[num]['temp'] = str(round(hour['temp']))
+        hourly_weather[num]['wind_speed'] = str(round(hour['wind_speed']))
+        hourly_weather[num]['condition'] = str(hour['weather'][0]['main'])
+        num += 1
+    return hourly_weather, daily_weather
 
 def get_current_weather(city, state):
     city_state = city + ',' + state + ',US'

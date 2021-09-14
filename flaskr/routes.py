@@ -2,7 +2,7 @@ import functools
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
 from flaskr.db import get_db
-from flaskr.api_request import get_location, get_current_weather
+from flaskr.api_request import get_location, get_current_weather, get_future_weather
 from flaskr.forms import SearchForm
 
 bp = Blueprint('routes', __name__)
@@ -12,6 +12,7 @@ def index():
     location = get_location()
     if location != 'Unavailable':
         current_weather = get_current_weather(location[0], location[1])
+        hourly_weather, daily_weather = get_future_weather(location[0], location[1])
         form = SearchForm(csrf_enabled=False)
         if request.method == 'POST':
             if form.validate_on_submit():
@@ -21,7 +22,7 @@ def index():
                 city = city.capitalize()
                 state = state.upper()
                 return redirect('/search/'+city+'_'+state)
-        return render_template('index.html', form=form, location=location, weather=current_weather)
+        return render_template('index.html', form=form, location=location, current_weather=current_weather, hourly_weather=hourly_weather, daily_weather=daily_weather)
     else:
         return redirect('/service_unavailable')
 

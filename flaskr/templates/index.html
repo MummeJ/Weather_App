@@ -24,7 +24,7 @@
       <h2>Daily Forcast</h2>
         {% for index in range(1,8) %}
         <div class="day">
-        <p>{{ begin_date }}</p>
+        <p>{{ daily_dates[index] }}</p>
         <p>High: {{ daily_weather[index]['temp_high'] }}</p>
         <p>Low: {{ daily_weather[index]['temp_low'] }}</p>
         <p>Condition: {{ daily_weather[index]['condition'] }}</p>

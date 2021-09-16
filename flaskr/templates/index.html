@@ -10,17 +10,25 @@
       <p>Low: {{ current_weather[3] }}</p>
       <p>Condition: {{ current_weather[4] }}</p>
     </div>
-    <div class="location">
+    <div class="hour_forcast">
       <h2>Hourly Forcast</h2>
-      <p>Temperature: {{ hourly_weather[1]['temp'] }}</p>
-      <p>Wind Speed: {{ hourly_weather[1]['wind_speed'] }}</p>
-      <p>Condition: {{ hourly_weather[1]['condition'] }}</p>
+      {% for index in range(1,49) %}
+      <div class="hour">
+        <p>Temperature: {{ hourly_weather[1]['temp'] }}</p>
+        <p>Wind Speed: {{ hourly_weather[1]['wind_speed'] }}</p>
+        <p>Condition: {{ hourly_weather[1]['condition'] }}</p>
+      </div>
+      {% endfor %}
     </div>
-    <div class="location">
+    <div class="day_forcast">
       <h2>Daily Forcast</h2>
-      <p>High: {{ daily_weather[1]['temp_high'] }}</p>
-      <p>Low: {{ daily_weather[1]['temp_low'] }}</p>
-      <p>Condition: {{ daily_weather[1]['condition'] }}</p>
+        {% for index in range(1,8) %}
+        <div class="day">
+        <p>High: {{ daily_weather[index]['temp_high'] }}</p>
+        <p>Low: {{ daily_weather[index]['temp_low'] }}</p>
+        <p>Condition: {{ daily_weather[index]['condition'] }}</p>
+        </div>
+        {% endfor %}
     </div>
     <span>{% with messages = get_flashed_messages() %}
     {% if messages %}

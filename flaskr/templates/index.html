@@ -12,7 +12,7 @@
     </div>
     <div class="hour_forcast">
       <h2>Hourly Forcast</h2>
-      {% for index in range(1,49) %}
+      {% for index in range(1,13) %}
       <div class="hour">
         <p>Temperature: {{ hourly_weather[1]['temp'] }}</p>
         <p>Wind Speed: {{ hourly_weather[1]['wind_speed'] }}</p>
@@ -24,10 +24,14 @@
       <h2>Daily Forcast</h2>
         {% for index in range(1,8) %}
         <div class="day">
+        <p>{{ begin_date }}</p>
         <p>High: {{ daily_weather[index]['temp_high'] }}</p>
         <p>Low: {{ daily_weather[index]['temp_low'] }}</p>
         <p>Condition: {{ daily_weather[index]['condition'] }}</p>
         </div>
+          {% if index < 7 %}
+          <div class="break"></div>
+          {% endif %}
         {% endfor %}
     </div>
     <span>{% with messages = get_flashed_messages() %}

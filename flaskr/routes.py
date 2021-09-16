@@ -13,8 +13,10 @@ def index():
     daily_dates = []
     location = get_location()
     if location != 'Unavailable':
-        begin_date = date.today()
-        end_date = begin_date + timedelta(days=6)
+        for num in range(1, 8):
+            date = date.today()
+            daily_dates.append(str(date.day)
+            date = date + timedelta(days=num)
         current_weather = get_current_weather(location[0], location[1])
         hourly_weather, daily_weather = get_future_weather(location[0], location[1])
         form = SearchForm(csrf_enabled=False)

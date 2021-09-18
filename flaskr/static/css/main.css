@@ -110,7 +110,7 @@ span {
 
 .day_forcast {
   margin: auto;
-  /* width: 95%; */
+  width: 95%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -191,7 +191,8 @@ input:-webkit-autofill:active  {
   background: #bdbdbd;
   justify-content: center;
   display: inline-block;
-  margin: auto;
+  margin-bottom: 0px;
+  margin: 5px;
 }
 
 @media screen and (max-width:768px){

@@ -11,12 +11,20 @@ bp = Blueprint('routes', __name__)
 @bp.route('/', methods=['POST', 'GET'])
 def index():
     daily_dates = []
+    hours = []
     d = date.today()
+    h = datetime.now()
     location = get_location()
     if location != 'Unavailable':
-        for num in range(1, 8):
+        for num in range(7):
+            d = d + timedelta(days=1)
             daily_dates.append(str(d.day))
-            d = d + timedelta(days=num)
+        for num in range(12):
+            h = h + timedelta(hours=1)
+            if len(str(h.hour)) == 1:
+                hours.append('0' + str(h.hour) + ':00')
+            else:
+                hours.append(str(h.hour) + ':00')
         current_weather = get_current_weather(location[0], location[1])
         hourly_weather, daily_weather = get_future_weather(location[0], location[1])
         form = SearchForm(csrf_enabled=False)
@@ -28,7 +36,7 @@ def index():
                 city = city.capitalize()
                 state = state.upper()
                 return redirect('/search/'+city+'_'+state)
-        return render_template('index.html', form=form, location=location, current_weather=current_weather, hourly_weather=hourly_weather, daily_weather=daily_weather, daily_dates=daily_dates)
+        return render_template('index.html', form=form, location=location, current_weather=current_weather, hourly_weather=hourly_weather, daily_weather=daily_weather, daily_dates=daily_dates, hours=hours)
     else:
         return redirect('/service_unavailable')
 

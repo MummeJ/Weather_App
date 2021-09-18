@@ -40,14 +40,14 @@ def get_future_weather(city, state):
     r = requests.get(base_url, params=params)
     dict = r.json()
     daily_weather = {}
-    num = 1
+    num = 0
     for day in dict['daily']:
         daily_weather[num] = {}
         daily_weather[num]['temp_high'] = str(round(day['temp']['max']))
         daily_weather[num]['temp_low'] = str(round(day['temp']['min']))
         daily_weather[num]['condition'] = str(day['weather'][0]['main'])
         num += 1
-    num = 1
+    num = 0
     hourly_weather = {}
     for hour in dict['hourly']:
         hourly_weather[num] = {}

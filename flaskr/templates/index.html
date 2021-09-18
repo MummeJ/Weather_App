@@ -12,24 +12,28 @@
     </div>
     <div class="hour_forcast">
       <h2>Hourly Forcast</h2>
-      {% for index in range(1,13) %}
+      {% for index in range(12) %}
       <div class="hour">
-        <p>Temperature: {{ hourly_weather[1]['temp'] }}</p>
-        <p>Wind Speed: {{ hourly_weather[1]['wind_speed'] }}</p>
-        <p>Condition: {{ hourly_weather[1]['condition'] }}</p>
+        <p>{{ hours[index] }}</p>
+        <p>Temperature: {{ hourly_weather[index]['temp'] }}</p>
+        <p>Wind Speed: {{ hourly_weather[index]['wind_speed'] }}</p>
+        <p>Condition: {{ hourly_weather[index]['condition'] }}</p>
       </div>
+      {% if index < 11 %}
+      <div class="break"></div>
+      {% endif %}
       {% endfor %}
     </div>
     <div class="day_forcast">
-      <h2>Daily Forcast</h2>
-        {% for index in range(1,8) %}
+      <h2>7 Day Forcast</h2>
+        {% for index in range(7) %}
         <div class="day">
         <p>{{ daily_dates[index] }}</p>
         <p>High: {{ daily_weather[index]['temp_high'] }}</p>
         <p>Low: {{ daily_weather[index]['temp_low'] }}</p>
         <p>Condition: {{ daily_weather[index]['condition'] }}</p>
         </div>
-          {% if index < 7 %}
+          {% if index < 6 %}
           <div class="break"></div>
           {% endif %}
         {% endfor %}

@@ -12,17 +12,23 @@
     </div>
     <div class="hour_forcast">
       <h2>Hourly Forcast</h2>
-      {% for index in range(12) %}
-      <div class="hour">
-        <p>{{ hours[index] }}</p>
-        <p>Temperature: {{ hourly_weather[index]['temp'] }}</p>
-        <p>Wind Speed: {{ hourly_weather[index]['wind_speed'] }}</p>
-        <p>Condition: {{ hourly_weather[index]['condition'] }}</p>
+      <div class="horizontal-scroll">
+        <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
+        <button class="btn-scroll" id="btn-scroll-right" onclick="scrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
+        <div class="hourly-container">
+          {% for index in range(12) %}
+          <div class="hour">
+            <p>{{ hours[index] }}</p>
+            <p>Temperature: {{ hourly_weather[index]['temp'] }}</p>
+            <p>Wind Speed: {{ hourly_weather[index]['wind_speed'] }}</p>
+            <p>Condition: {{ hourly_weather[index]['condition'] }}</p>
+          </div>
+          {% if index < 11 %}
+          <div class="break"></div>
+          {% endif %}
+          {% endfor %}
+        </div>
       </div>
-      {% if index < 11 %}
-      <div class="break"></div>
-      {% endif %}
-      {% endfor %}
     </div>
     <div class="day_forcast">
       <h2>7 Day Forcast</h2>
@@ -46,6 +52,33 @@
     {% endif %}
     {% endwith %}</span>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      let currentScrollPosition = 0;
+      let scrollAmount = 320;
+      const sConst = document.querySelector(".hourly-container")
+      const hScroll = document.querySelector(".horizontal-scroll")
+      const btnScrollLeft = document.querySelector("#btn-scroll-left")
+      const btnScrollRight = document.querySelector("#btn-scroll-right")
+      let maxScroll = -sConst.offsetWidth + hScroll.offsetWidth;
+      btnScrollLeft.style.opacity = '0';
+      function scrollHorizontally(val){
+        currentScrollPosition += (val * scrollAmount);
+        if (currentScrollPosition > 0){
+          currentScrollPosition = 0;
+          btnScrollLeft.style.opacity = '0';
+        }else{
+          btnScrollLeft.style.opacity = '1';
+        }
+        if(currentScrollPosition < maxScroll){
+          currentScrollPosition = maxScroll;
+          btnScrollRight.style.opacity = '0';
+        }else{
+          btnScrollRight.style.opacity = '1';
+        }
+        sConst.style.left = currentScrollPosition + "px";
+      }
+
+    </script>
   </div>
 
 {% endblock %}

@@ -46,12 +46,14 @@ def get_future_weather(city, state):
         daily_weather[num]['temp_high'] = str(round(day['temp']['max']))
         daily_weather[num]['temp_low'] = str(round(day['temp']['min']))
         daily_weather[num]['condition'] = str(day['weather'][0]['main'])
+        daily_weather[num]['precipitation'] = str(day['pop'] * 100) + '%'
         num += 1
     num = 0
     hourly_weather = {}
     for hour in dict['hourly']:
         hourly_weather[num] = {}
         hourly_weather[num]['temp'] = str(round(hour['temp']))
+        hourly_weather[num]['precipitation'] = str(hour['pop'] * 100) + '%'
         hourly_weather[num]['wind_speed'] = str(round(hour['wind_speed']))
         hourly_weather[num]['condition'] = str(hour['weather'][0]['main'])
         num += 1

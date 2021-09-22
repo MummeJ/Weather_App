@@ -65,9 +65,12 @@ def get_current_weather(city, state):
     base_url = 'https://api.openweathermap.org/data/2.5/weather?'
     r = requests.get(base_url, params=params)
     dict = r.json()
-    current_temp = str(round(dict['main']['temp']))
-    feels_like = str(round(dict['main']['feels_like']))
-    temp_high = str(round(dict['main']['temp_max']))
-    temp_low = str(round(dict['main']['temp_min']))
-    sky = dict['weather'][0]['description']
-    return current_temp, feels_like, temp_high, temp_low, sky
+    current_weather = {}
+    current_weather['temp'] = str(round(dict['main']['temp']))
+    current_weather['feels_like'] = str(round(dict['main']['feels_like']))
+    current_weather['high'] = str(round(dict['main']['temp_max']))
+    current_weather['low'] = str(round(dict['main']['temp_min']))
+    current_weather['humidity'] = str(round(dict['main']['humidity'])) + '%'
+    current_weather['wind'] = str(round(dict['wind']['speed'])) + 'mph'
+    current_weather['condition'] = dict['weather'][0]['description']
+    return current_weather

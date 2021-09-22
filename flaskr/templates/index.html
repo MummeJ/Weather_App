@@ -4,11 +4,19 @@
   <div class="wrapper">
     <div class="location">
       <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
-      <p>Temperature: {{ current_weather[0] }}</p>
-      <p>Feels Like: {{ current_weather[1] }}</p>
-      <p>High: {{ current_weather[2] }}</p>
-      <p>Low: {{ current_weather[3] }}</p>
-      <p>Condition: {{ current_weather[4] }}</p>
+      <div class="location_container">
+        <div class="row-1">
+          <p>Temperature: {{ current_weather['temp'] }}&deg</p>
+          <p>Feels Like: {{ current_weather['feels_like'] }}&deg</p>
+          <p>High: {{ current_weather['high'] }}&deg</p>
+          <p>Low: {{ current_weather['low'] }}&deg</p>
+        </div>
+        <div class="row-2">
+          <p>Condition: {{ current_weather['condition'] }}</p>
+          <p>Humidity: {{ current_weather['humidity'] }}</p>
+          <p>Wind: {{ current_weather['wind'] }}</p>
+        </div>
+      </div>
     </div>
     <div class="hour_forcast">
       <h2>Hourly Forcast</h2>

@@ -87,7 +87,7 @@ span {
 
 .location {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -98,7 +98,7 @@ span {
 
 .hour_forcast {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -154,7 +154,7 @@ span {
 
 .day_forcast {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -265,14 +265,13 @@ input:-webkit-autofill:active  {
 
 @media screen and (max-width:768px){
   body{
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   .nav-links{
     position: absolute;
     right: 0px;
     height: 92vh;
     top: 8vh;
-    /* background-color: #030e41; */
     background-image: linear-gradient(#030e41, #8c97da);
     display: flex;
     flex-direction: column;
@@ -280,12 +279,29 @@ input:-webkit-autofill:active  {
     transform: translateX(100%);
     transition: transform 0.5s ease-in;
     opacity: 90%;
+    z-index: 2;
   }
   .nav-links li{
     opacity: 0;
   }
   .burger{
     display: block;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .location {
+    width: 100%;
+  }
+
+  .hour_forcast {
+    width: 100%;
+  }
+
+  .day_forcast {
+    width: 100%;
   }
 }
 

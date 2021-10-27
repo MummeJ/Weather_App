@@ -23,8 +23,8 @@ This is weather app that makes an api call to openweathermap.com to get the weat
 ### ==Executing Program== ###
 To run, set the following environment variables:
 * Powershell
-	* `FLASK_APP = "flaskr"`
-	* `FLASK_ENV = "development"`
+	* `$env:FLASK_APP = "flaskr"`
+	* `$env:FLASK_ENV = "development"`
 	* `flask run`
 * CMD
 	* `set FLASK_APP=flaskr`

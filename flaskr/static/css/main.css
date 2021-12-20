@@ -87,7 +87,7 @@ span {
 
 .location {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -96,9 +96,17 @@ span {
   margin-bottom: 20px;
 }
 
+.location_container {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  align-items: center;
+  margin: auto;
+}
+
 .hour_forcast {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
@@ -108,7 +116,7 @@ span {
   margin-bottom: 20px;
 }
 
-.horizontal-scroll {
+.hourly-horizontal-scroll {
   width: 100%;
   height: 140px;
   background-color: #3259ad;
@@ -120,11 +128,12 @@ span {
   overflow: hidden;
 }
 
-.horizontal-scroll .btn-scroll {
+.hourly-horizontal-scroll .btn-scroll {
   background-color: #fff;
   color: #999;
   padding: 5px 8px;
   box-shadow: 0 0 10px #999;
+  opacity: 70%;
   border: 0;
   border-radius: 50%;
   margin: 0px 5px;
@@ -144,23 +153,66 @@ span {
 }
 
 .hour {
-  width: 120px;
+  width: 140px;
   justify-content: center;
   display: inline-block;
   margin: auto;
   font-size: .8rem;
-
 }
 
 .day_forcast {
   margin: auto;
-  width: 95%;
+  width: 85%;
   border: 3px solid black;
   padding: 10px;
   background-color: #3259ad;
   border-radius: 25px;
   box-shadow: -5px 5px 10px black;
   text-align: center;
+}
+
+.daily-horizontal-scroll {
+  width: 100%;
+  height: 140px;
+  background-color: #3259ad;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-horizontal-scroll .btn-scroll {
+  background-color: #fff;
+  color: #999;
+  padding: 5px 8px;
+  box-shadow: 0 0 10px #999;
+  opacity: 70%;
+  border: 0;
+  border-radius: 50%;
+  margin: 0px 5px;
+  z-index: 1;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.daily-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  left: 0;
+  transition: 0.5s all ease-out;
+}
+
+.day {
+  width: 140px;
+  justify-content: center;
+  display: inline-block;
+  margin: auto;
+  font-size: .8rem;
 }
 
 .search-bar {
@@ -203,22 +255,35 @@ span {
   font-family: 'Poppins', sans-serif;
 }
 
+.footer {
+  height: 180px;
+  width: 100%;
+  background-color: #030e41;
+  margin: auto;
+}
+
+.footer-links li{
+  list-style: none;
+  margin: auto;
+  padding-top: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+  text-align: center;
+}
+
+.footer-links a{
+  text-decoration: underline;
+  color: #bdbdbd;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active  {
   transition: background-color 50000s;
   -webkit-text-fill-color: #fff !important;
-}
-
-
-.day {
-  justify-content: center;
-  display: inline-block;
-  /* width: 25px;
-  height: 100px; */
-  margin: auto;
-  font-size: .8rem;
 }
 
 .break {
@@ -233,14 +298,13 @@ input:-webkit-autofill:active  {
 
 @media screen and (max-width:768px){
   body{
-    overflow: hidden;
+    /* overflow: hidden; */
   }
   .nav-links{
     position: absolute;
     right: 0px;
     height: 92vh;
     top: 8vh;
-    /* background-color: #030e41; */
     background-image: linear-gradient(#030e41, #8c97da);
     display: flex;
     flex-direction: column;
@@ -248,12 +312,29 @@ input:-webkit-autofill:active  {
     transform: translateX(100%);
     transition: transform 0.5s ease-in;
     opacity: 90%;
+    z-index: 2;
   }
   .nav-links li{
     opacity: 0;
   }
   .burger{
     display: block;
+  }
+
+  .wrapper {
+    width: 100%;
+  }
+
+  .location {
+    width: 100%;
+  }
+
+  .hour_forcast {
+    width: 100%;
+  }
+
+  .day_forcast {
+    width: 100%;
   }
 }
 

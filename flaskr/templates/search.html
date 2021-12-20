@@ -3,15 +3,136 @@
 {% block body %}
   <div class="wrapper">
     <div class="location">
-      <h1>Weather For {{ city }}, {{ state }}</h1>
-      <p>Temperature: {{ weather[0] }}</p>
-      <p>Feels Like: {{ weather[1] }}</p>
-      <p>High: {{ weather[2] }}</p>
-      <p>Low: {{ weather[3] }}</p>
-      <p>Condition: {{ weather[4] }}</p>
+      <h1>Weather for {{ city }}, {{ state }}</h1>
+      <div class="location_container">
+        <div class="row-1">
+          <p>Temperature: {{ current_weather['temp'] }}&deg</p>
+          <p>Feels Like: {{ current_weather['feels_like'] }}&deg</p>
+          <p>High: {{ current_weather['high'] }}&deg</p>
+          <p>Low: {{ current_weather['low'] }}&deg</p>
+        </div>
+        <div class="row-2">
+          <p>Condition: {{ current_weather['condition'] }}</p>
+          <p>Humidity: {{ current_weather['humidity'] }}</p>
+          <p>Wind: {{ current_weather['wind'] }}</p>
+        </div>
+      </div>
     </div>
-    <br>
-    <p><a href="/"><-- Back to Home</a></p>
+    <div class="hour_forcast">
+      <h2>Hourly Forcast</h2>
+      <div class="hourly-horizontal-scroll">
+        <button type='button' class="btn-scroll" id="hourly-btn-scroll-left" onclick="scrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
+        <button type='button' class="btn-scroll" id="hourly-btn-scroll-right" onclick="scrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
+        <div class="hourly-container">
+          {% for index in range(12) %}
+          <div class="hour">
+            <p>{{ hours[index] }}</p>
+            <p>Temp: {{ hourly_weather[index]['temp'] }}&deg;</p>
+            <p>Wind: {{ hourly_weather[index]['wind_speed'] }}</p>
+            <p>Chance of Rain: {{ hourly_weather[index]['precipitation']}}</p>
+          </div>
+          {% if index < 11 %}
+          <div class="break"></div>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="day_forcast">
+      <h2>7 Day Forcast</h2>
+      <div class="daily-horizontal-scroll">
+        <button type='button'class="btn-scroll" id="daily-btn-scroll-left" onclick="dScrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
+        <button type='button'class="btn-scroll" id="daily-btn-scroll-right" onclick="dScrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
+        <div class="daily-container">
+          {% for index in range(7) %}
+          <div class="day">
+            <p>{{ daily_dates[index] }}</p>
+            <p>High: {{ daily_weather[index]['temp_high'] }}&deg;</p>
+            <p>Low: {{ daily_weather[index]['temp_low'] }}&deg;</p>
+            <p>Condition: {{ daily_weather[index]['condition'] }}</p>
+            <p>Chance of Rain: {{ daily_weather[index]['precipitation']}}</p>
+          </div>
+          {% if index < 6 %}
+          <div class="break"></div>
+          {% endif %}
+          {% endfor %}
+  	    </div>
+      </div>
+    </div>
+    <span>{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for message in messages %}
+        {{ message }}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}</span>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+      let currentScrollPosition = 0;
+      let scrollAmount = 320;
+      const sConst = document.querySelector(".hourly-container")
+      const hScroll = document.querySelector(".hourly-horizontal-scroll")
+      const btnScrollLeft = document.querySelector("#hourly-btn-scroll-left")
+      const btnScrollRight = document.querySelector("#hourly-btn-scroll-right")
+      let maxScroll = -sConst.offsetWidth + hScroll.offsetWidth;
+      btnScrollLeft.style.cursor = 'auto'
+      btnScrollLeft.style.transition = 'none'
+      btnScrollLeft.style.opacity = '0';
+      function scrollHorizontally(val){
+        btnScrollLeft.style.transition - '0.5s'
+        currentScrollPosition += (val * scrollAmount);
+        if (currentScrollPosition > 0){
+          currentScrollPosition = 0;
+          btnScrollLeft.style.cursor = 'auto'
+          btnScrollLeft.style.opacity = '0';
+        }else{
+          btnScrollLeft.style.cursor = 'pointer'
+          btnScrollLeft.style.opacity = '.7';
+        }
+        if(currentScrollPosition < maxScroll){
+          currentScrollPosition = maxScroll;
+          btnScrollRight.style.opacity = '0';
+          btnScrollRight.style.cursor = 'auto'
+        }else{
+          btnScrollRight.style.opacity = '.7';
+          btnScrollRight.style.cursor = 'pointer'
+        }
+        sConst.style.left = currentScrollPosition + "px";
+      }
+    </script>
+    <script>
+      let dCurrentScrollPosition = 0;
+      let dScrollAmount = 320;
+      const dSConst = document.querySelector(".daily-container")
+      const dHScroll = document.querySelector(".daily-horizontal-scroll")
+      const dBtnScrollLeft = document.querySelector("#daily-btn-scroll-left")
+      const dBtnScrollRight = document.querySelector("#daily-btn-scroll-right")
+      let dMaxScroll = -dSConst.offsetWidth + dHScroll.offsetWidth;
+      dBtnScrollLeft.style.cursor = 'auto'
+      dBtnScrollLeft.style.transition = 'none'
+      dBtnScrollLeft.style.opacity = '0';
+      function dScrollHorizontally(val){
+        dCurrentScrollPosition += (val * dScrollAmount);
+        dBtnScrollLeft.style.transition = '0.5s'
+        if (dCurrentScrollPosition > 0){
+          dCurrentScrollPosition = 0;
+          dBtnScrollLeft.style.cursor = 'auto'
+          dBtnScrollLeft.style.opacity = '0';
+        }else{
+          dBtnScrollLeft.style.cursor = 'pointer'
+          dBtnScrollLeft.style.opacity = '.7';
+        }
+        if(dCurrentScrollPosition < dMaxScroll){
+          dCurrentScrollPosition = dMaxScroll;
+          dBtnScrollRight.style.opacity = '0';
+          dBtnScrollRight.style.cursor = 'auto'
+        }else{
+          dBtnScrollRight.style.opacity = '.7';
+          dBtnScrollRight.style.cursor = 'pointer'
+        }
+        dSConst.style.left = dCurrentScrollPosition + "px";
+      }
+    </script>
   </div>
-  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
 {% endblock %}

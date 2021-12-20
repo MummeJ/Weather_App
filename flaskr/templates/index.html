@@ -4,24 +4,32 @@
   <div class="wrapper">
     <div class="location">
       <h1>Current location: {{ location[0]}}, {{ location[1]}}</h1>
-      <p>Temperature: {{ current_weather[0] }}</p>
-      <p>Feels Like: {{ current_weather[1] }}</p>
-      <p>High: {{ current_weather[2] }}</p>
-      <p>Low: {{ current_weather[3] }}</p>
-      <p>Condition: {{ current_weather[4] }}</p>
+      <div class="location_container">
+        <div class="row-1">
+          <p>Temperature: {{ current_weather['temp'] }}&deg</p>
+          <p>Feels Like: {{ current_weather['feels_like'] }}&deg</p>
+          <p>High: {{ current_weather['high'] }}&deg</p>
+          <p>Low: {{ current_weather['low'] }}&deg</p>
+        </div>
+        <div class="row-2">
+          <p>Condition: {{ current_weather['condition'] }}</p>
+          <p>Humidity: {{ current_weather['humidity'] }}</p>
+          <p>Wind: {{ current_weather['wind'] }}</p>
+        </div>
+      </div>
     </div>
     <div class="hour_forcast">
       <h2>Hourly Forcast</h2>
-      <div class="horizontal-scroll">
-        <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
-        <button class="btn-scroll" id="btn-scroll-right" onclick="scrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
+      <div class="hourly-horizontal-scroll">
+        <button type='button' class="btn-scroll" id="hourly-btn-scroll-left" onclick="scrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
+        <button type='button' class="btn-scroll" id="hourly-btn-scroll-right" onclick="scrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
         <div class="hourly-container">
           {% for index in range(12) %}
           <div class="hour">
             <p>{{ hours[index] }}</p>
-            <p>Temperature: {{ hourly_weather[index]['temp'] }}</p>
-            <p>Wind Speed: {{ hourly_weather[index]['wind_speed'] }}</p>
-            <p>Condition: {{ hourly_weather[index]['condition'] }}</p>
+            <p>Temp: {{ hourly_weather[index]['temp'] }}&deg;</p>
+            <p>Wind: {{ hourly_weather[index]['wind_speed'] }}</p>
+            <p>Chance of Rain: {{ hourly_weather[index]['precipitation']}}</p>
           </div>
           {% if index < 11 %}
           <div class="break"></div>
@@ -32,17 +40,24 @@
     </div>
     <div class="day_forcast">
       <h2>7 Day Forcast</h2>
-        {% for index in range(7) %}
-        <div class="day">
-        <p>{{ daily_dates[index] }}</p>
-        <p>High: {{ daily_weather[index]['temp_high'] }}</p>
-        <p>Low: {{ daily_weather[index]['temp_low'] }}</p>
-        <p>Condition: {{ daily_weather[index]['condition'] }}</p>
-        </div>
+      <div class="daily-horizontal-scroll">
+        <button type='button'class="btn-scroll" id="daily-btn-scroll-left" onclick="dScrollHorizontally(1)"><i class="fas fa-arrow-left"></i></button>
+        <button type='button'class="btn-scroll" id="daily-btn-scroll-right" onclick="dScrollHorizontally(-1)"><i class="fas fa-arrow-right"></i></button>
+        <div class="daily-container">
+          {% for index in range(7) %}
+          <div class="day">
+            <p>{{ daily_dates[index] }}</p>
+            <p>High: {{ daily_weather[index]['temp_high'] }}&deg;</p>
+            <p>Low: {{ daily_weather[index]['temp_low'] }}&deg;</p>
+            <p>Condition: {{ daily_weather[index]['condition'] }}</p>
+            <p>Chance of Rain: {{ daily_weather[index]['precipitation']}}</p>
+          </div>
           {% if index < 6 %}
           <div class="break"></div>
           {% endif %}
-        {% endfor %}
+          {% endfor %}
+  	    </div>
+      </div>
     </div>
     <span>{% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -51,34 +66,6 @@
       {% endfor %}
     {% endif %}
     {% endwith %}</span>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    <script>
-      let currentScrollPosition = 0;
-      let scrollAmount = 320;
-      const sConst = document.querySelector(".hourly-container")
-      const hScroll = document.querySelector(".horizontal-scroll")
-      const btnScrollLeft = document.querySelector("#btn-scroll-left")
-      const btnScrollRight = document.querySelector("#btn-scroll-right")
-      let maxScroll = -sConst.offsetWidth + hScroll.offsetWidth;
-      btnScrollLeft.style.opacity = '0';
-      function scrollHorizontally(val){
-        currentScrollPosition += (val * scrollAmount);
-        if (currentScrollPosition > 0){
-          currentScrollPosition = 0;
-          btnScrollLeft.style.opacity = '0';
-        }else{
-          btnScrollLeft.style.opacity = '1';
-        }
-        if(currentScrollPosition < maxScroll){
-          currentScrollPosition = maxScroll;
-          btnScrollRight.style.opacity = '0';
-        }else{
-          btnScrollRight.style.opacity = '1';
-        }
-        sConst.style.left = currentScrollPosition + "px";
-      }
-
-    </script>
   </div>
 
 {% endblock %}

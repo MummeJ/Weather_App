@@ -57,8 +57,22 @@ def search(city, state):
             state = state.upper()
             return redirect('/search/'+city+'_'+state)
     try:
+        daily_dates = []
+        hours = []
+        d = date.today()
+        h = datetime.now()
+        for num in range(7):
+            d = d + timedelta(days=1)
+            daily_dates.append(str(d.day))
+        for num in range(12):
+            h = h + timedelta(hours=1)
+            if len(str(h.hour)) == 1:
+                hours.append('0' + str(h.hour) + ':00')
+            else:
+                hours.append(str(h.hour) + ':00')
         current_weather = get_current_weather(city, state)
+        hourly_weather, daily_weather = get_future_weather(city, state)
     except:
         flash('Sorry, we could not find the weather for '+city+', '+state+'. Try searching again!')
         return redirect(url_for('routes.index'))
-    return render_template('search.html', form=form, city=city, state=state, weather=current_weather)
+    return render_template('search.html', form=form, city=city, state=state, current_weather=current_weather, hourly_weather=hourly_weather, daily_weather=daily_weather, daily_dates=daily_dates, hours=hours)

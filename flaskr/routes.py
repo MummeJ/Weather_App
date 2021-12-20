@@ -45,6 +45,16 @@ def unavailable():
     form = SearchForm(csrf_enabled=False)
     return render_template('unavailable.html', form=form)
 
+@bp.route('/about', methods=['GET'])
+def unavailable():
+    form = SearchForm(csrf_enabled=False)
+    return render_template('about.html', form=form)
+
+@bp.route('/contact', methods=['GET'])
+def unavailable():
+    form = SearchForm(csrf_enabled=False)
+    return render_template('contact.html', form=form)
+
 @bp.route('/search/<city>_<state>', methods=['POST', 'GET'])
 def search(city, state):
     form = SearchForm(csrf_enabled=False)

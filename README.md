@@ -20,7 +20,7 @@ This is weather app that makes an api call to openweathermap.com to get the weat
       - `routes.py` - Contains all of the routes.
       - `schema.sql` - Creates the sql table schema.
 
-### ==Executing Program== ###
+### ==Executing Program Locally== ###
 To run, set the following environment variables:
 * Powershell
 	* `$env:FLASK_APP = "flaskr"`

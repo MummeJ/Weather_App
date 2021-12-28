@@ -19,6 +19,9 @@ This is weather app that makes an api call to openweathermap.com to get the weat
       - `forms.py` - Contains all the forms.
       - `routes.py` - Contains all of the routes.
       - `schema.sql` - Creates the sql table schema.
+   - `Procfile` - Tells Heroku where the app is.
+   - `requirements.txt` - Application requirements.
+   - `wsgi.py` - Creates instance of app.
 
 ### ==Executing Program Locally== ###
 To run, set the following environment variables:

@@ -1,6 +1,7 @@
 import requests
+import json
 import geocoder
-from flask import redirect
+from flask import redirect, request
 import time
 
 google_key = 'AIzaSyDc3GdOMZnLnRGztSGHRe9FGATaMEfrSO0'
@@ -20,7 +21,6 @@ def get_location():
         return g.city, g.state
     else:
         return "Unavailable"
-
 def get_coordinates(city, state):
     params = {'key': google_key, 'address': city + ', ' + state}
     base_url = 'https://maps.googleapis.com/maps/api/geocode/json?'

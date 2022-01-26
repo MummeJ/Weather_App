@@ -5,7 +5,7 @@
 }
 
 body {
-  height: 100vh;
+  /* height: 100vh; */
   background-image: linear-gradient(#07065d, #8c97da);
 }
 
@@ -36,6 +36,7 @@ span {
   text-align: center;
   padding-left: 100px;
   color: #770000;
+  display: none;
 }
 
 .logo{
@@ -77,10 +78,11 @@ span {
 }
 
 .wrapper {
-  width:75%;
+  width:85%;
   margin:auto;
   margin-top: 10px;
-  height: 80%;
+  height: auto;
+  min-height: 60vh;
   color: #bdbdbd;
   font-family: 'Poppins', sans-serif;
 }
@@ -162,6 +164,7 @@ span {
 
 .day_forcast {
   margin: auto;
+  margin-bottom: 20px;
   width: 85%;
   border: 3px solid black;
   padding: 10px;
@@ -256,12 +259,15 @@ span {
 }
 
 .footer {
-  height: 180px;
+  height: 220px;
   width: 100%;
   background-color: #030e41;
   margin: auto;
 }
 
+.footer-links {
+  padding-top: 30px;
+}
 .footer-links li{
   list-style: none;
   margin: auto;
@@ -303,8 +309,8 @@ input:-webkit-autofill:active  {
   .nav-links{
     position: absolute;
     right: 0px;
-    height: 92vh;
-    top: 8vh;
+    height: 100vh;
+    top: 12vh;
     background-image: linear-gradient(#030e41, #8c97da);
     display: flex;
     flex-direction: column;
